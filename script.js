@@ -7,15 +7,6 @@ function getComputerChoice() {
     return options[choice];
 }
 
-function getHumanChoice() {
-    let choiceButtons = document.querySelectorAll(".choice");
-    choiceButtons.forEach(choice, () => {
-        choice.addEventListener("click", () => {
-            return choice.value;
-        });
-    });
-}
-
 
 function playRound(computerChoice, humanChoice) {
 
@@ -24,7 +15,7 @@ function playRound(computerChoice, humanChoice) {
 
             switch (humanChoice) {
                 case "Rock":
-                    return "Tie, you both picked " + humanChoice
+                    return "Tie, you both picked " + humanChoice;
 
                 case "Paper":
                     humanScore++;
@@ -32,7 +23,7 @@ function playRound(computerChoice, humanChoice) {
 
                 case "Scissors":
                     computerScore++;
-                    return "Computer won! " + computerChoice + " beats " + humanChoice
+                    return "Computer won! " + computerChoice + " beats " + humanChoice;
             }   
                 
             break;
@@ -41,18 +32,15 @@ function playRound(computerChoice, humanChoice) {
 
             switch (humanChoice) {
                 case "Rock":
-                    console.log("Computer won! " + computerChoice + " beats " + humanChoice);
                     computerScore++;
-                    break;
+                    return "Computer won! " + computerChoice + " beats " + humanChoice;
 
                 case "Paper":
-                    console.log("Tie, you both picked " + humanChoice);
-                    break;
+                    return "Tie, you both picked " + humanChoice;
 
                 case "Scissors":
-                    console.log("You won! " + humanChoice + " beats " + computerChoice);
                     humanScore++;
-                    break;
+                    return "You won! " + humanChoice + " beats " + computerChoice;
             }   
 
             break;
@@ -60,37 +48,36 @@ function playRound(computerChoice, humanChoice) {
 
             switch (humanChoice) {
                 case "Rock":
-                    console.log("You won! " + humanChoice + " beats " + computerChoice);
                     humanScore++;
-                    break;
+                    return "You won! " + humanChoice + " beats " + computerChoice;
 
                 case "Paper":
-                    console.log("Computer won! " + computerChoice + " beats " + humanChoice);
                     computerScore++;
-                    break;
+                    return "Computer won! " + computerChoice + " beats " + humanChoice;
 
                 case "Scissors":
-                    console.log("Tie, you both picked " + humanChoice);
-                    break;
+                    return "Tie, you both picked " + humanChoice;
             }   
 
             break;
-    
-        default:
-            break;
     }
 }
 
 
-function gameLoop() {
+let score = document.querySelector(".scores");
+let history = document.querySelector(".round-history");
 
-    let score = document.querySelector(".scores");
-    let history = document.querySelector(".round-history");
+const choiceButtons = document.querySelectorAll(".choice");
+    choiceButtons.forEach(choice => {
+            choice.addEventListener("click", () => {
+                let computerChoice = getComputerChoice();
 
-    while (humanScore < 6 || computerScore < 6) {
-        let computerChoice = getComputerChoice();
-        let humanChoice = getHumanChoice();
+                let roundText = playRound(computerChoice, choice.value);
 
-        playRound()
-    }
-}
+                score.textContent = "Player: " + humanScore + " - " + computerScore + ": Computer";
+
+                let roundHistory = document.createElement("li");
+                roundHistory.textContent = roundText;
+                history.appendChild(roundHistory);
+        });
+});
