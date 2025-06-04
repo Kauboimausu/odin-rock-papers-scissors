@@ -70,6 +70,22 @@ let history = document.querySelector(".round-history");
 const choiceButtons = document.querySelectorAll(".choice");
     choiceButtons.forEach(choice => {
             choice.addEventListener("click", () => {
+                // We need to check if someone has already won, if so it can't be played anymore
+                if (computerScore >= 5 || humanScore >= 5){
+                    let warningText = document.createElement("li");
+
+                    let winner = "";
+                    if (humanScore == 5)
+                        winner = "Player";
+                    else
+                        winner = "Computer";
+
+                    warningText.textContent = winner + " has already won the game";
+                    history.appendChild(warningText);
+
+                    return
+                }
+                
                 let computerChoice = getComputerChoice();
 
                 let roundText = playRound(computerChoice, choice.value);
@@ -79,5 +95,28 @@ const choiceButtons = document.querySelectorAll(".choice");
                 let roundHistory = document.createElement("li");
                 roundHistory.textContent = roundText;
                 history.appendChild(roundHistory);
+
+                // Winner declaring text
+                if (computerScore >= 5 || humanScore >= 5){
+
+                    let declareWinner = document.createElement("li");
+                    let winner = "";
+
+                    if (humanScore == 5){
+                        winner = "Player";
+                        score.style.backgroundColor = "green";
+                    }
+                    else{
+                        winner = "Computer";
+                        score.style.backgroundColor = "red";
+                    }
+                        
+
+                    declareWinner.textContent = winner + " has won the match!"
+                    history.appendChild(declareWinner);
+                }
+
+                
+                
         });
 });

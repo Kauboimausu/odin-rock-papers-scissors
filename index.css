@@ -1,20 +1,43 @@
 * {
     font-family: Roboto;
+    font-size: 20px;
 }
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 50vh;
+    margin: 0;
 }
 
-.score { 
+.scores, .selection, .history {
+    padding: 50px;
+}
+
+.scores{ 
     background-color: antiquewhite;
     color: black;
+    width: 100%;
+    text-align: center;
 }
 
 .selection {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+}
+
+.selection > button {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.round-history {
+    padding: 0;
+    margin: 0;
 }
